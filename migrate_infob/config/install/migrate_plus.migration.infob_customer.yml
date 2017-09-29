@@ -1,0 +1,53 @@
+id: infob_customer
+migration_tags:
+  - 'Drupal 6'
+migration_group: infob
+label: 'Customer nodes'
+source:
+  plugin: customer_node
+  node_type: customer
+process:
+  type:
+    plugin: default_value
+    default_value: customer
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  title: title
+  status: status
+  promote: promote
+  sticky: sticky
+  'body/value': body
+  'body/format': full_html
+  field_quote: field_customer_blurb
+  field_customer_description: field_customer_descriptor
+  'field_logo/target_id':
+    plugin: migration
+    migration: infob_file
+    source: field_customer_logo
+  field_challenge_text: field_content_box_1
+  'field_challenge_text/format':
+    plugin: default_value
+    default_value: full_html
+  field_strategy_text: field_content_box_2
+  'field_strategy_text/format':
+    plugin: default_value
+    default_value: full_html
+  field_result_text: field_content_box_3
+  'field_result_text/format':
+    plugin: default_value
+    default_value: full_html
+  field_video: 	field_video_url
+  'field_image/target_id':
+    plugin: migration
+    migration: ib_cck_file
+    source: field_masthead_image
+  field_nid: nid
+  field_metatags: meta_tags
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - infob_file
+  optional: {}

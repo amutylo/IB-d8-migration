@@ -1,0 +1,35 @@
+id: infob_analystreport
+migration_tags:
+  - 'Drupal 6'
+migration_group: infob
+label: 'Analyst Report nodes'
+source:
+  plugin: analystreport_node
+  node_type: analystreport
+process:
+  type:
+    plugin: default_value
+    default_value: resource
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  title: title
+  status: status
+  promote: promote
+  sticky: sticky
+  'body/value': body
+  'body/format': full_html
+  field_date: field_article_datef
+  'field_resource_file/target_id':
+    plugin: migration
+    migration: infob_file
+    source: field_pdf
+  field_nid: nid
+  field_metatags: meta_tags
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - infob_file
+  optional: {}

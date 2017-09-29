@@ -1,0 +1,29 @@
+id: infob_press_release
+migration_tags:
+  - 'Drupal 6'
+migration_group: infob
+label: 'Press Release nodes'
+source:
+  plugin: press_release_node
+  node_type: press_release
+process:
+  type:
+    plugin: default_value
+    default_value: press_release
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  title: title
+  status: status
+  promote: promote
+  sticky: sticky
+  'body/value': body
+  'body/format': full_html
+  field_subtitle: field_sub_heading
+  field_location: field_city
+  field_date: field_article_datef
+  field_nid: nid
+  field_metatags: meta_tags
+destination:
+  plugin: 'entity:node'

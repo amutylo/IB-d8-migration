@@ -1,0 +1,42 @@
+id: infob_think_tank
+migration_tags:
+  - 'Drupal 6'
+migration_group: infob
+label: 'Think Tank nodes'
+source:
+  plugin: think_tank_node
+  node_type: think_tank
+process:
+  type:
+    plugin: default_value
+    default_value: news   
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  title: title
+  status: status
+  promote: promote
+  sticky: sticky
+  'body/value': body
+  'body/format': full_html
+  field_date: field_article_datef
+  'field_news_link/uri': field_article_link
+  field_article_author: field_article_author
+  field_article_author_title: field_article_author_title
+  field_article_publication:
+    plugin: iterator
+    source: field_article_pub
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: infob_publications
+        source: nid
+  field_nid: nid
+  field_metatags: meta_tags
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - infob_publications
+  optional: {}
