@@ -18,7 +18,8 @@ class ThinkTankNode extends Node {
   public function query() {
     $query = parent::query();
     $query->condition('n.language', 'en');
-
+    $query->condition('n.status', 1);
+    
     return $query;
   }
 

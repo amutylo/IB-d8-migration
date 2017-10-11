@@ -1,22 +1,42 @@
 id: infob_file
-label: Files from www.infobuilders.com
+label: Migrate files from www.infobuilders.com
 migration_tags:
   - Drupal 6
 migration_group: infob
 source:
   plugin: infob_file
+  constants:
+    source_base_path: http://www.informationbuilders.com
 process:
   fid: fid
   filename: filename
-  uri: filepath
   filemime: filemime
   filesize: filesize
   status: status
   changed: timestamp
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - filepath
+    -
+      plugin: urlencode
+  destination_full_path:
+    plugin: file_uri
+    source:
+      - filepath
+      - file_directory_path
+      - temp_directory_path
+      - is_public
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@destination_full_path'
 destination:
   plugin: entity:file
   urlencode: true
   source_path_property: filepath
-  # Scrape from the web site.
-  source_base_path: 'http://www.infobuilders.com/'
   destination_path_property: uri

@@ -19,6 +19,7 @@ class WhitePaperNode extends Node {
     $query = parent::query();
     //get only english nodes;
     $query->condition('n.language', 'en');
+    $query->condition('n.status', 1);
 
     return $query;
   }

@@ -62,14 +62,34 @@ class IbFile extends File {
       $this->fidsToMigrate = array_merge($this->fidsToMigrate, $pdf_ids);
     }
 
-    if (in_array($row->getSourceProperty('fid'), $this->fidsToMigrate)) {
+
+    $file_path = 'http://www.informationbuilders.com/' . $row->getSourceProperty('filepath');
+    $file_exist = $this->fileExists($file_path);
+
+    if ($file_exist && in_array($row->getSourceProperty('fid'), $this->fidsToMigrate)) {
       return parent::prepareRow($row);
     }
     else {
+
       $this->idMap->saveIdMapping($row, [], MigrateIdMapInterface::STATUS_IGNORED);
       return FALSE;
     }
 
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function fileExists($path){
+    return (@fopen($path,"r")==true);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function query() {
+    $query = parent::query();
+    
+    return $query;
+  }
 }

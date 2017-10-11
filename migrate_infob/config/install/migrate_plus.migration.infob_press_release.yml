@@ -21,9 +21,10 @@ process:
   'body/value': body
   'body/format': full_html
   field_subtitle: field_sub_heading
-  field_location: field_city
+  field_city: field_city
   field_date: field_article_datef
   field_nid: nid
   field_metatags: meta_tags
+  field_address_locality: field_city
 destination:
   plugin: 'entity:node'

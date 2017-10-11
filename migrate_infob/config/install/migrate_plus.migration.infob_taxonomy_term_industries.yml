@@ -1,0 +1,24 @@
+id: infob_taxonomy_term_industries
+label: Taxonomy terms
+migration_tags:
+  - Drupal 6
+migration_group: infob
+source:
+  plugin: taxonomy_term_industries
+process:
+  # If you are using this file to build a custom migration consider removing
+  # the tid field to allow incremental migrations.
+  #tid: tid
+  vid:
+    plugin: migration_lookup
+    migration: infob_taxonomy_vocabulary
+    source: vid
+  name: name
+  description: description
+  weight: weight
+  changed: timestamp
+destination:
+  plugin: entity:taxonomy_term
+migration_dependencies:
+  required:
+    - infob_taxonomy_vocabulary
