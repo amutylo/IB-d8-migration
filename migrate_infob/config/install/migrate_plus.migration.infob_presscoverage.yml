@@ -33,6 +33,9 @@ process:
           source: nid
   field_nid: nid
   field_metatags: meta_tags
+  field_news_type:
+    plugin: default_value
+    default_value: 241
 destination:
   plugin: 'entity:node'
 migration_dependencies:

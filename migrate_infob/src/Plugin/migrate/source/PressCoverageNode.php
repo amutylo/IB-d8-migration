@@ -35,6 +35,7 @@ class PressCoverageNode extends Node {
     $fields['field_article_link'] = $this->t('Article link');
     $fields['field_homepage_blurb'] = $this->t('Home page blur');
     $fields['field_article_pub'] = $this->t('Article publication');
+    $fields['field_news_type'] = $this->t('News type');
     return $fields;
   }
 

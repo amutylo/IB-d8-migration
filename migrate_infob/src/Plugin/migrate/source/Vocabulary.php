@@ -21,7 +21,8 @@ class Vocabulary extends DrupalSqlBase {
     'Products',
     'Industries',
     'Functions',
-    'Complementary Solutions'
+    'Complementary Solutions',
+    'Customers'
   ];
 
   /**

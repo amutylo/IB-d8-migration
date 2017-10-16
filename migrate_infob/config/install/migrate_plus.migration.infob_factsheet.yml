@@ -21,11 +21,15 @@ process:
   'body/value': body
   'body/format': full_html
   field_date: field_article_datef
-  field_resource_file:
-    plugin: infob_file
+  'field_resource_file/target_id':
+    plugin: migration
+    migration: infob_file
     source: field_pdf
   field_nid: nid
   field_metatags: meta_tags
+  field_resource_type:
+    plugin: default_value
+    default_value: 16
 destination:
   plugin: 'entity:node'
 migration_dependencies:

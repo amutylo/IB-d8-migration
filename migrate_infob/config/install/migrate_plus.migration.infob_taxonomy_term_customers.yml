@@ -1,10 +1,10 @@
-id: infob_taxonomy_term_products
+id: infob_taxonomy_term_customers
 label: Taxonomy terms
 migration_tags:
   - Drupal 6
 migration_group: infob
 source:
-  plugin: taxonomy_term_products
+  plugin: taxonomy_term_customers
 process:
   # If you are using this file to build a custom migration consider removing
   # the tid field to allow incremental migrations.

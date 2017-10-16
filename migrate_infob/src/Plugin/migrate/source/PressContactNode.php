@@ -8,10 +8,10 @@ use Drupal\node\Plugin\migrate\source\d6\Node;
  * Drupal 6 node source from database.
  *
  * @MigrateSource(
- *   id = "press_release_node"
+ *   id = "press_contact_node"
  * )
  */
-class PressReleaseNode extends Node {
+class PressContactNode extends Node {
 
 
   /**
@@ -32,11 +32,10 @@ class PressReleaseNode extends Node {
   public function fields() {
     $fields = parent::fields();
     //add custom fields;
-    $fields['field_sub_heading'] = $this->t('Subheading');
-    $fields['field_city'] = $this->t('City');
-    $fields['field_article_datef'] = $this->t('Datef');
-    $fields['field_press_contact'] = $this->t('Press contact reference');
-
+    $fields['field_author_company'] = $this->t('Company');
+    $fields['field_tip_author_name'] = $this->t('Author name');
+    $fields['field_email'] = $this->t('Email');
+    $fields['field_phone'] = $this->t('Phone');
     return $fields;
   }
 
@@ -55,12 +54,6 @@ class PressReleaseNode extends Node {
     ];
     
     $row->setSourceProperty('meta_tags', serialize($metatags));
-
-    if ($date = $row->getSourceProperty('field_article_datef')) {
-      $timestamp = strtotime($date[0]['value']);
-      $date[0]['value'] = date('Y-m-d', $timestamp);
-      $row->setSourceProperty('field_article_datef', $date);
-    }
 
     return TRUE;
   }

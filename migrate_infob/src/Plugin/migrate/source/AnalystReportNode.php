@@ -32,6 +32,8 @@ class AnalystReportNode extends Node {
     //add custom fields;
     $fields['field_article_datef'] = $this->t('Datef');
     $fields['field_pdf'] = $this->t('Pdf file');
+    $fields['field_salesforce_campaign_id'] = $this->t('Salesforce campaign id');
+    $fields['field_resource_type'] = $this->t('Resource type');
     return $fields;
   }
 
@@ -42,6 +44,7 @@ class AnalystReportNode extends Node {
     if (parent::prepareRow($row) === FALSE) {
       return FALSE;
     }
+
     $metatags = [
       'title' => $row->getSourceProperty('HEAD_TITLE') . ' | [site:name]',
       'description' => $row->getSourceProperty('DESCRIPTION'),
@@ -53,6 +56,15 @@ class AnalystReportNode extends Node {
     if (isset($pdf[0]['fid'])) {
       $row->setSourceProperty('field_pdf', $pdf[0]['fid']);
     }
+
+    if ($an_rep = $row->getSourceProperty('field_analyst_report_description')) {
+      $an_rep[0]['format'] = 'full_html';
+      $row->setSourceProperty('field_analyst_report_description', $an_rep);
+    }
+    if ($wp_url = $row->getSourceProperty('field_whitepaper_url')) {
+      $row->setSourceProperty('field_whitepaper_url', $wp_url[0]['value']);
+    }
+    
     return TRUE;
   }
 }

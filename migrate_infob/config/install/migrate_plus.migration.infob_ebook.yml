@@ -29,6 +29,9 @@ process:
   field_salesforce_campaign_id: field_salesforce_campaign_id
   field_nid: nid
   field_metatags: meta_tags
+  field_resource_type:
+    plugin: default_value
+    default_value: 11
 destination:
   plugin: 'entity:node'
 migration_dependencies:

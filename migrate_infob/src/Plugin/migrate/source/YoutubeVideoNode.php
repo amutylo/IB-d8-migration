@@ -51,7 +51,14 @@ class YoutubeVideoNode extends Node {
       'keywords' => $row->getSourceProperty('KEYWORDS'),
     ];
     $row->setSourceProperty('meta_tags', serialize($metatags));
-
+    
+    if ($hb = $row->getSourceProperty('field_homepage_blurb')) {
+      $hb[0]['format'] = 'full_html';
+      $row->setSourceProperty('field_homepage_blurb', $hb);
+    }
+    elseif ($body = $row->getSourceProperty('body')) {
+      $row->setSourceProperty('field_homepage_blurb', $body);
+    }
     return TRUE;
   }
 }

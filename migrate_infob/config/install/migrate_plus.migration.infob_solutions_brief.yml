@@ -27,6 +27,9 @@ process:
     source: field_pdf
   field_nid: nid
   field_metatags: meta_tags
+  field_resource_type:
+      plugin: default_value
+      default_value: 21
 destination:
   plugin: 'entity:node'
 migration_dependencies:

@@ -5,7 +5,7 @@ migration_group: infob
 label: 'Case Studies nodes'
 source:
   plugin: case_studies_node
-  node_type: case_studies
+  node_type: customer_story
 process:
   type:
     plugin: default_value
@@ -23,13 +23,17 @@ process:
   field_date: field_article_datef
   'field_resource_file/target_id':
     plugin: migration
-    migration: infob_file
-    source: field_pdf
+    migration: infob_cs_file
+    source: field_customer_story_pdf_fid
+  field_resource_copy: field_homepage_blurb
   field_nid: nid
   field_metatags: meta_tags
+  field_resource_type:
+    plugin: default_value
+    default_value: 1246
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
-    - infob_file
+    - infob_cs_file
   optional: {}

@@ -25,6 +25,13 @@ process:
     plugin: migration
     migration: infob_file
     source: field_pdf
+  field_salesforce_campaign_id: field_salesforce_campaign_id
+  field_resource_copy: field_analyst_report_description
+  field_resource_link: field_whitepaper_url
+#  field_taxonomy_reference: taxonomy_reference
+  field_resource_type:
+    plugin: default_value
+    default_value: 201
   field_nid: nid
   field_metatags: meta_tags
 destination:

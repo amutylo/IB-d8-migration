@@ -34,6 +34,7 @@ class ThinkTankNode extends Node {
     $fields['field_article_author'] = $this->t('Article author');
     $fields['field_article_author_title'] = $this->t('Article author title');
     $fields['field_article_pub'] = $this->t('Article publication reference');
+    $fields['field_news_type'] = $this->t('News type');
     return $fields;
   }
 

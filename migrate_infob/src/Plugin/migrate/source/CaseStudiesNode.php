@@ -31,7 +31,9 @@ class CaseStudiesNode extends Node {
     $fields = parent::fields();
     //add custom fields;
     $fields['field_article_datef'] = $this->t('Datef');
-    $fields['field_pdf'] = $this->t('Pdf file');
+    $fields['field_customer_story_pdf'] = $this->t('Pdf file');
+    $fields['field_homepage_blurb'] = $this->t('Home page blurb');
+    $fields['field_resource_type'] = $this->t('Resource type');
     return $fields;
   }
 
@@ -50,9 +52,13 @@ class CaseStudiesNode extends Node {
     ];
     $row->setSourceProperty('meta_tags', serialize($metatags));
 
-    $pdf = $row->getSourceProperty('field_pdf');
-    if (isset($pdf[0]['fid'])) {
-      $row->setSourceProperty('field_pdf', $pdf[0]['fid']);
+
+    if ($pdf = $row->getSourceProperty('field_customer_story_pdf')) {
+      $row->setSourceProperty('field_customer_story_pdf_fid', $pdf[0]['fid']);
+    }
+    if ($hb = $row->getSourceProperty('field_homepage_blurb')) {
+      $hb[0]['format'] = 'full_html';
+      $row->setSourceProperty('field_homepage_blurb', $hb);
     }
 
     return parent::prepareRow($row);

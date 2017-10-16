@@ -29,7 +29,6 @@ class CustomerNode extends Node {
   public function fields() {
     $fields = parent::fields();
     //add custom fields
-    $fields['field_article_datef'] = $this->t('Datef');
     $fields['field_customer_blurb'] = $this->t('Customer quote');
     $fields['field_customer_logo'] = $this->t('Customer logo');
     $fields['field_customer_descriptor'] = $this->t('Customer descriptor');
@@ -38,8 +37,7 @@ class CustomerNode extends Node {
     $fields['field_content_box_2'] = $this->t('Strategy text');
     $fields['field_content_box_3'] = $this->t('Result text');
     $fields['field_video_url'] = $this->t('Video url');
-    $fields['field_masthead_image'] = $this->t('Video url');
-    $fields['field_customer_location_lid'] = $this->t('Customer location');
+    $fields['field_masthead_image'] = $this->t('Image');
     return $fields;
   }
 
@@ -65,7 +63,7 @@ class CustomerNode extends Node {
 
     $img = $row->getSourceProperty('field_masthead_image');
     if (isset($img[0]['fid'])) {
-      $row->setSourceProperty('field_masthead_image', $img[0]['fid']);
+      $row->setSourceProperty('field_image', $img[0]['fid']);
     }
 
     if ($customer_blurb = $row->getSourceProperty('field_customer_blurb')) {
@@ -78,22 +76,55 @@ class CustomerNode extends Node {
         }
       }
     }
-    drush_log(\GuzzleHttp\json_encode($row));
-    if ($customer_address_lid = $row->getSourceProperty('field_customer_location_lid')) {
+
+    if ($cbox1 = $row->getSourceProperty('field_content_box_1')){
+      $cbox1[0]['format'] = 'full_html';
+      $row->setSourceProperty('field_content_box_1', $cbox1);
+    }
+    if ($cbox2 = $row->getSourceProperty('field_content_box_2')){
+      $cbox2[0]['format'] = 'full_html';
+      $row->setSourceProperty('field_content_box_2', $cbox2);
+    }
+
+    if ($cbox3 = $row->getSourceProperty('field_content_box_3')){
+      $cbox3[0]['format'] = 'full_html';
+      $row->setSourceProperty('field_content_box_3', $cbox3);
+    }
+
+    //migrate address data;
+    if ($location = $row->getSourceProperty('field_customer_location')) {
+      $lid = $location[0]['lid'];
       $address_data = $this->select('location', 'l')
-        ->fields('l', array('name', 'street', 'additional', 'city', 'province', 'postal_code', 'country'))
+        ->fields('l', array('lid', 'street', 'additional', 'city', 'province', 'postal_code', 'country'))
+        ->condition('l.lid', $lid)
         ->distinct()
         ->execute()
-        ->fetchCol();
-      drush_log('address-data = ', 'status');
-      drush_log(\GuzzleHttp\json_encode($address_data), 'status');
+        ->fetchAllAssoc('lid');
       if (!empty($address_data)) {
-        $row->setSourceProperty('locality', $address_data['name']);
-        $row->setSourceProperty('postal_code', $address_data['postal_code']);
-        $row->setSourceProperty('address_line1', $address_data['street']);
-        $row->setSourceProperty('address_line2', $address_data['additional']);
-        $row->setSourceProperty('country_code', $address_data['country']);
-        $row->setSourceProperty('administrative_area', $address_data['province']);
+        $address = array();
+        foreach ($address_data[$lid] as $label => $data) {
+          switch ($label){
+            case 'street':
+              $address[0]['address_line1'] = $data;
+            break;
+            case 'additional':
+              $address[0]['address_line2'] = $data;
+              break;
+            case 'city':
+              $address[0]['locality'] = $data;
+              break;
+            case 'province':
+              $address[0]['administrative_area'] = $data;
+              break;
+            case 'postal_code':
+              $address[0]['postal_code'] = $data;
+              break;
+            case 'country':
+              $address[0]['country_code'] = strtoupper($data);
+              break;
+          }
+        }
+        $row->setSourceProperty('address', $address);
       }
     }
     return TRUE;

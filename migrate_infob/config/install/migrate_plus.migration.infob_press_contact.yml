@@ -1,0 +1,30 @@
+id: infob_press_contact
+migration_tags:
+  - 'Drupal 6'
+migration_group: infob
+label: 'Press Contact nodes'
+source:
+  plugin: press_contact_node
+  node_type: pr_contact
+process:
+  type:
+    plugin: default_value
+    default_value: press_contact
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  title: title
+  status: status
+  promote: promote
+  sticky: sticky
+  'body/value': body
+  'body/format': full_html
+  field_author_company: field_author_company
+  field_tip_author_name: field_tip_author_name
+  field_email: field_email
+  field_phone: field_phone
+  field_nid: nid
+  field_metatags: meta_tags
+destination:
+  plugin: 'entity:node'

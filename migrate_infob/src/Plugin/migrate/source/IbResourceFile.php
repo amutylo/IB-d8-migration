@@ -10,10 +10,10 @@ use Drupal\migrate\Row;
  * Filtered list of files to migrate.
  *
  * @MigrateSource(
- *   id = "infob_file"
+ *   id = "infob_resource_file"
  * )
  */
-class IbFile extends File {
+class IbResourceFile extends File {
 
   /**
    * Tables and columns in the D6 database containing the fids we want to
@@ -24,10 +24,7 @@ class IbFile extends File {
    *   want to migrate.
    */
   protected $fileFields = [
-    ['table' => 'content_field_masthead_image', 'column' => 'field_masthead_image_fid'],
-    ['table' => 'content_field_customer_logo', 'column' => 'field_customer_logo_fid'],
-    ['table' => 'content_field_pb_thumbnail', 'column' => 'field_pb_thumbnail_fid'],
-    ['table' => 'content_field_pdf', 'column' => 'field_pdf_fid']
+    ['table' => 'content_field_wp_thumbnail', 'column' => 'field_wp_thumbnail_fid']
   ];
 
   /**
@@ -66,7 +63,7 @@ class IbFile extends File {
     $file_exist = $this->fileExists($file_path);
 
     if (!$file_exist) {
-      $file_path = 'http://www.xxxxx.com/' . $row->getSourceProperty('filepath');
+      $file_path = 'http://www.xxxxxx.com/' . $row->getSourceProperty('filepath');
       $file_exist = $this->fileExists($file_path);
     }
 

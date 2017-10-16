@@ -18,15 +18,9 @@ process:
   status: status
   promote: promote
   sticky: sticky
-  'body/value': body
-  'body/format': full_html
   field_teaser_copy: field_homepage_blurb
   field_video: field_external_youtube
   field_nid: nid
   field_metatags: meta_tags
 destination:
   plugin: 'entity:node'
-migration_dependencies:
-  required:
-    - infob_file
-  optional: {}

@@ -21,41 +21,26 @@ process:
   'body/value': body
   'body/format': full_html
   field_customer_description: field_customer_descriptor
-  #'field_logo/target_id':
-  #  plugin: migration
-  #  migration: infob_file
-  #  source: field_customer_logo
+  'field_logo/target_id':
+    plugin: migration
+    migration: infob_file
+    source: field_customer_logo
   field_challenge_text: field_content_box_1
-  'field_challenge_text/format':
-    plugin: default_value
-    default_value: full_html
   field_strategy_text: field_content_box_2
-  'field_strategy_text/format':
-    plugin: default_value
-    default_value: full_html
   field_result_text: field_content_box_3
-  'field_result_text/format':
-    plugin: default_value
-    default_value: full_html
   field_video: 	field_video_url
-  #'field_image/target_id':
-  #  plugin: migration
-  #  migration: infob_file
-  #  source: field_masthead_image
-  field_nid: nid
+  'field_image/target_id':
+    plugin: migration
+    migration: infob_file
+    source: field_masthead_image
   field_metatags: meta_tags
   field_quote: field_quote
   field_quote_source: field_quote_source
-  field_quote_source_position: 	field_quote_source_position
-  field_address_locality: locality
-  field_address_postal_code: postal_code
-  field_address_address_line1: address_line1
-  field_address_address_line2: address_line2
-  field_address_country_code: country_code
-  field_address_administrative_area: administrative_area
+  field_quote_source_position: field_quote_source_position
+  field_address: address
 destination:
   plugin: 'entity:node'
-#migration_dependencies:
-#  required:
-#    - infob_file
-#  optional: {}
+migration_dependencies:
+  required:
+    - infob_file
+  optional: {}

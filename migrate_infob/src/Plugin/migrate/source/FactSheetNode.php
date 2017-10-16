@@ -34,6 +34,7 @@ class FactSheetNode extends Node {
     $fields['field_article_link'] = $this->t('Article link');
     $fields['field_homepage_blurb'] = $this->t('Homepage blurb');
     $fields['field_pdf'] = $this->t('Pdf file');
+    $fields['field_resource_type'] = $this->t('Resource type');
     return $fields;
   }
 

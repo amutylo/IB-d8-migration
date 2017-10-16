@@ -33,6 +33,7 @@ class EbookNode extends Node {
     $fields['field_article_datef'] = $this->t('Datef');
     $fields['field_ebook_pdf'] = $this->t('Electronic book');
     $fields['field_salesforce_campaign_id'] = $this->t('Salesforce campaign id');
+    $fields['field_resource_type'] = $this->t('Resource type');
     return $fields;
   }
 

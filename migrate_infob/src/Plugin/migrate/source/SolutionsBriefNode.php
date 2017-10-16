@@ -31,6 +31,7 @@ class SolutionsBriefNode extends Node {
     //add custom fields
     $fields['field_article_datef'] = $this->t('Datef');
     $fields['field_pdf'] = $this->t('Pdf file');
+    $fields['field_resource_type'] = $this->t('Resource type');
     return $fields;
   }
 

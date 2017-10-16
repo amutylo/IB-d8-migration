@@ -22,9 +22,20 @@ process:
   'body/format': full_html
   field_subtitle: field_sub_heading
   field_city: field_city
-  field_date: field_article_datef
+  field_date_only: field_article_datef
+  field_press_contact:
+    plugin: iterator
+    source: field_press_contact
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: infob_press_contact
+        source: nid
   field_nid: nid
   field_metatags: meta_tags
-  field_address_locality: field_city
 destination:
   plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - infob_press_contact
+  optional: {}

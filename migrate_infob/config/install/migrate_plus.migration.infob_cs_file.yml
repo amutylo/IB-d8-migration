@@ -1,14 +1,16 @@
-id: infob_file
-label: Migrate files from www.xxxxxxx.com
+id: infob_cs_file
+label: Migrate files from www.xxxxxx.com
 migration_tags:
   - Drupal 6
 migration_group: infob
 source:
-  plugin: infob_file
+  plugin: cs_file
   constants:
-    source_base_path: http://www.xxxxxxxx.com
+    source_base_path: http://www.xxxxxx.com
 process:
   fid: fid
+#    plugin: skip_on_empty
+#    method: row
   filename: filename
   filemime: filemime
   filesize: filesize
