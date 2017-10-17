@@ -52,18 +52,17 @@ class IbResourceFile extends File {
       }
       $pdf_ids = $this->select('files', 'f')
         ->fields('f', array('fid'))
-        ->condition('filemime', 'application/pdf')
         ->distinct()
         ->execute()
         ->fetchCol();
       $this->fidsToMigrate = array_merge($this->fidsToMigrate, $pdf_ids);
     }
 
-    $file_path = '/Users/xxxxx/Work/Projects/IB/_backups/ibi_web/' . $row->getSourceProperty('filepath');
+    $file_path = '/Users/pglynn/Work/Projects/IB/_backups/ibi_web/' . $row->getSourceProperty('filepath');
     $file_exist = $this->fileExists($file_path);
 
     if (!$file_exist) {
-      $file_path = 'http://www.xxxxxx.com/' . $row->getSourceProperty('filepath');
+      $file_path = 'http://www.informationbuilders.com/' . $row->getSourceProperty('filepath');
       $file_exist = $this->fileExists($file_path);
     }
 

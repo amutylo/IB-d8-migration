@@ -66,11 +66,11 @@ class IbCsFile extends File {
     }
 
     if (in_array($row->getSourceProperty('fid'), $this->fidsToMigrate)) {
-      $file_path = '/Users/xxxxx/Work/Projects/IB/_backups/ibi_web/' . $row->getSourceProperty('filepath');
+      $file_path = '/Users/pglynn/Work/Projects/IB/_backups/ibi_web/' . $row->getSourceProperty('filepath');
       $file_exist = $this->fileExists($file_path);
 
     if (!$file_exist) {
-     $file_path = 'http://www.xxxxx.com/' . $row->getSourceProperty('filepath');
+     $file_path = 'http://www.informationbuilders.com/' . $row->getSourceProperty('filepath');
       $file_exist = $this->fileExists($file_path);
     }
 

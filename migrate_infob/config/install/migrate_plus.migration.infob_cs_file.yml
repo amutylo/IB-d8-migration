@@ -1,12 +1,12 @@
 id: infob_cs_file
-label: Migrate files from www.xxxxxx.com
+label: Migrate files from www.infobuilders.com
 migration_tags:
   - Drupal 6
 migration_group: infob
 source:
   plugin: cs_file
   constants:
-    source_base_path: http://www.xxxxxx.com
+    source_base_path: http://www.informationbuilders.com
 process:
   fid: fid
 #    plugin: skip_on_empty

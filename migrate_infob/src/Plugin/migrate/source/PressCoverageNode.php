@@ -61,6 +61,12 @@ class PressCoverageNode extends Node {
       $row->setSourceProperty('field_article_link', $link[0]['value']);
     }
 
+    if ($date = $row->getSourceProperty('field_article_datef')) {
+      $timestamp = strtotime($date[0]['value']);
+      $date[0]['value'] = date('Y-m-d', $timestamp);
+      $row->setSourceProperty('field_article_datef', $date);
+    }
+
     return TRUE;
   }
 }

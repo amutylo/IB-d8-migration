@@ -18,13 +18,12 @@ process:
   status: status
   promote: promote
   sticky: sticky
-  'body/value': body
-  'body/format': full_html
   field_customer_description: field_customer_descriptor
   'field_logo/target_id':
     plugin: migration
     migration: infob_file
     source: field_customer_logo
+  'field_logo/alt': title
   field_challenge_text: field_content_box_1
   field_strategy_text: field_content_box_2
   field_result_text: field_content_box_3
@@ -33,6 +32,7 @@ process:
     plugin: migration
     migration: infob_file
     source: field_masthead_image
+  'field_image/alt': title
   field_metatags: meta_tags
   field_quote: field_quote
   field_quote_source: field_quote_source

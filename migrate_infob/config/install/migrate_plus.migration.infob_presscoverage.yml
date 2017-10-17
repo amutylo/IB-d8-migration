@@ -20,7 +20,7 @@ process:
   sticky: sticky
   'body/value': body
   'body/format': full_html
-  field_date: field_article_datef
+  field_date_only: field_article_datef
   'field_news_link/uri': field_article_link
   field_teaser_copy: field_homepage_blurb
   field_article_publication:

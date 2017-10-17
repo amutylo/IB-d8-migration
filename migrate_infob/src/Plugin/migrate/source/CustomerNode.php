@@ -17,7 +17,6 @@ class CustomerNode extends Node {
    */
   public function query() {
     $query = parent::query();
-    $query->condition('n.language', 'en');
     $query->condition('n.status', 1);
     
     return $query;
@@ -31,8 +30,8 @@ class CustomerNode extends Node {
     //add custom fields
     $fields['field_customer_blurb'] = $this->t('Customer quote');
     $fields['field_customer_logo'] = $this->t('Customer logo');
-    $fields['field_customer_descriptor'] = $this->t('Customer descriptor');
-    $fields['field_customer_location'] = $this->t('Customer location');
+    $fields['field_customer_descriptor'] = $this->t('Customer description');
+    $fields['field_customer_location'] = $this->t('Address');
     $fields['field_content_box_1'] = $this->t('Challenge text');
     $fields['field_content_box_2'] = $this->t('Strategy text');
     $fields['field_content_box_3'] = $this->t('Result text');
@@ -63,14 +62,21 @@ class CustomerNode extends Node {
 
     $img = $row->getSourceProperty('field_masthead_image');
     if (isset($img[0]['fid'])) {
-      $row->setSourceProperty('field_image', $img[0]['fid']);
+      $row->setSourceProperty('field_masthead_image', $img[0]['fid']);
+    }
+
+    $description = $row->getSourceProperty('field_customer_descriptor');
+    if (isset($description[0]['value'])) {
+      $description[0]['format'] = 'full_html';
+      $row->setSourceProperty('field_customer_descriptor', $description);
     }
 
     if ($customer_blurb = $row->getSourceProperty('field_customer_blurb')) {
       foreach($customer_blurb as $item) {
         if (!empty($item['value'])) {
           $value = explode("\r\n", $item['value']);
-          $row->setSourceProperty('field_quote', trim(strip_tags($value[0])));
+          $value[0] = str_replace('"', '', $value[0]);
+          $row->setSourceProperty('field_quote', array('value' => trim(strip_tags($value[0])), 'format' => 'full_html'));
           $row->setSourceProperty('field_quote_source', trim(strip_tags($value[1])));
           $row->setSourceProperty('field_quote_source_position', trim(strip_tags($value[2])));
         }
