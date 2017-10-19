@@ -6,3 +6,25 @@ package: Custom
 dependencies:
   - migrate_plus
   - migrate_drupal
+config_devel:
+  install:
+    - migrate_plus.migration.infob_analystreport
+    - migrate_plus.migration.infob_case_studies
+    - migrate_plus.migration.infob_customer
+#    - migrate_plus.migration.infob_ebook
+    - migrate_plus.migration.infob_factsheet
+    - migrate_plus.migration.infob_press_contact
+    - migrate_plus.migration.infob_press_release
+    - migrate_plus.migration.infob_presscoverage
+    - migrate_plus.migration.infob_publications
+    - migrate_plus.migration.infob_solutions_brief
+    - migrate_plus.migration.infob_taxonomy_term_csolutions
+    - migrate_plus.migration.infob_taxonomy_term_customers
+    - migrate_plus.migration.infob_taxonomy_term_functions
+    - migrate_plus.migration.infob_taxonomy_term_industries
+    - migrate_plus.migration.infob_taxonomy_term_products
+    - migrate_plus.migration.infob_taxonomy_term_topics
+    - migrate_plus.migration.infob_taxonomy_vocabulary
+    - migrate_plus.migration.infob_think_tank
+    - migrate_plus.migration.infob_white_paper
+    - migrate_plus.migration.infob_youtube_video

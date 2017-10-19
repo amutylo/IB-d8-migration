@@ -30,7 +30,6 @@ class EbookNode extends Node {
   public function fields() {
     $fields = parent::fields();
     //add custom fields
-    $fields['field_article_datef'] = $this->t('Datef');
     $fields['field_ebook_pdf'] = $this->t('Electronic book');
     $fields['field_salesforce_campaign_id'] = $this->t('Salesforce campaign id');
     $fields['field_resource_type'] = $this->t('Resource type');
@@ -46,15 +45,22 @@ class EbookNode extends Node {
     }
 
     $metatags = [
-      'title' => $row->getSourceProperty('HEAD_TITLE') . ' | [site:name]',
+      'title' => '[node:title] | [site:name]',
       'description' => $row->getSourceProperty('DESCRIPTION'),
       'keywords' => $row->getSourceProperty('KEYWORDS'),
     ];
     $row->setSourceProperty('meta_tags', serialize($metatags));
 
+
     $pdf = $row->getSourceProperty('field_ebook_pdf');
     if (isset($pdf[0]['fid'])) {
       $row->setSourceProperty('field_ebook_pdf', $pdf[0]['fid']);
+    }
+
+    if ($body = $row->getSourceProperty('body')) {
+      $value[0]['value'] = $body;
+      $value[0]['format'] = 'full_html';
+      $row->setSourceProperty('body', $value);
     }
 
     return TRUE;

@@ -48,11 +48,17 @@ class ThinkTankNode extends Node {
     }
 
     $metatags = [
-      'title' => $row->getSourceProperty('HEAD_TITLE') . ' | [site:name]',
+      'title' => '[node:title] | [site:name]',
       'description' => $row->getSourceProperty('DESCRIPTION'),
       'keywords' => $row->getSourceProperty('KEYWORDS'),
     ];
     $row->setSourceProperty('meta_tags', serialize($metatags));
+
+    if ($body = $row->getSourceProperty('body')) {
+      $value[0]['value'] = $body;
+      $value[0]['format'] = 'full_html';
+      $row->setSourceProperty('body', $value);
+    }
 
 
     $link = $row->getSourceProperty('field_article_link');
@@ -65,7 +71,6 @@ class ThinkTankNode extends Node {
       $date[0]['value'] = date('Y-m-d', $timestamp);
       $row->setSourceProperty('field_article_datef', $date);
     }
-
     
     return TRUE;
   }

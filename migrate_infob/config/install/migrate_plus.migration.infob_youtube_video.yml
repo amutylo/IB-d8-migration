@@ -22,5 +22,11 @@ process:
   field_video: field_external_youtube
   field_nid: nid
   field_metatags: meta_tags
+  field_customer: field_customer_node
+  field_industry: field_industry
+  field_tax_product: field_tax_product
+  field_topic: field_topic
+  field_tax_video: field_tax_video
+  field_tax_function: field_tax_function
 destination:
   plugin: 'entity:node'

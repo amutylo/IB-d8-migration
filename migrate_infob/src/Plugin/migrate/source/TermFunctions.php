@@ -27,7 +27,8 @@ class TermFunctions extends DrupalSqlBase {
     'Mid-sized Companies',
     'Operations',
     'Sales',
-    'Supply Chain Management'
+    'Supply Chain Management',
+    'HR'
     ];
   
   /**

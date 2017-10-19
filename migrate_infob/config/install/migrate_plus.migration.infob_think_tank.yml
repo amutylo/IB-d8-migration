@@ -18,8 +18,7 @@ process:
   status: status
   promote: promote
   sticky: sticky
-  'body/value': body
-  'body/format': full_html
+  'body': body
   field_date_only: field_article_datef
   'field_news_link/uri': field_article_link
   field_article_author: field_article_author

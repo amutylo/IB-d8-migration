@@ -47,14 +47,14 @@ class PressCoverageNode extends Node {
     if (parent::prepareRow($row) === FALSE) {
       return FALSE;
     }
-    
+
     $metatags = [
-      'title' => $row->getSourceProperty('HEAD_TITLE') . ' | [site:name]',
+      'title' => '[node:title] | [site:name]',
       'description' => $row->getSourceProperty('DESCRIPTION'),
       'keywords' => $row->getSourceProperty('KEYWORDS'),
     ];
-    $row->setSourceProperty('meta_tags', serialize($metatags));
 
+    $row->setSourceProperty('meta_tags', serialize($metatags));
 
     $link = $row->getSourceProperty('field_article_link');
     if (isset($link[0]['value'])) {
@@ -67,6 +67,69 @@ class PressCoverageNode extends Node {
       $row->setSourceProperty('field_article_datef', $date);
     }
 
+
+    //- Get taxonomy terms from node being imported
+    $termIds = $this->select('term_node', 'n')
+                    ->fields('n', array('tid'))
+                    ->condition('n.nid', $row->getSourceProperty('nid'))
+                    ->distinct()
+                    ->execute()
+                    ->fetchCol();
+
+    if (!empty($termIds)) {
+      $termData = $this->select('term_data', 't')
+                       ->fields('t', array( 'vid', 'tid', 'name' ))
+                       ->condition('t.tid', $termIds, 'IN')
+                       ->distinct()
+                       ->execute()
+                       ->fetchAll();
+
+      //- Map topic taxonomy
+      $topicTerms = $this->getTerms('topics', $termData);
+      if ( ! empty( $topicTerms )) {
+        $row->setSourceProperty('field_topic', $topicTerms);
+      }
+    }
+
+    //- Map customer taxonomy
+    $customerNode = $row->getSourceProperty('field_customer_node');
+    if (!empty($customerNode)) {
+
+      $nid = $customerNode[0]['nid'];
+      /**
+       *  Get new node id from migrate_map_xxxx table as nid at destination is different than nid at source.
+       */
+      $d8nid = \Drupal::database()->select('migrate_map_infob_customer', 'mmic')
+                      ->fields('mmic', array('destid1'))
+                      ->condition('mmic.sourceid1', $nid)
+                      ->distinct()
+                      ->execute()
+                      ->fetchCol();
+
+      $d8node = \Drupal\node\Entity\Node::load($d8nid[0]);
+      if ($d8node) {
+        $customerTerms = $d8node->get('field_customer')->referencedEntities();
+        $custTerms = [];
+        foreach ($customerTerms as $term) {
+          $custTerms[] = $term->tid->value;
+        }
+        $row->setSourceProperty('field_customer_node', $custTerms);
+      }
+    }
+
     return TRUE;
+  }
+
+  public function getTerms($vocabulary, $termData) {
+    $terms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree($vocabulary, $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+    $termIds = array();
+    foreach ($terms as $k => $term) {
+      foreach($termData as $availableTerm) {
+        if ($term->name == $availableTerm['name']) {
+          $termIds[] = $term->tid;
+        }
+      }
+    }
+    return $termIds;
   }
 }

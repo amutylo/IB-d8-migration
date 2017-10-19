@@ -33,12 +33,11 @@ class PublicationNode extends Node {
     }
 
     $metatags = [
-      'title' => $row->getSourceProperty('HEAD_TITLE') . ' | [site:name]',
+      'title' => '[node:title] | [site:name]',
       'description' => $row->getSourceProperty('DESCRIPTION'),
       'keywords' => $row->getSourceProperty('KEYWORDS'),
     ];
     $row->setSourceProperty('meta_tags', serialize($metatags));
-
     
     $pb_fid = $row->getSourceProperty('field_pb_thumbnail');
     if (isset($pb_fid[0]['fid'])) {

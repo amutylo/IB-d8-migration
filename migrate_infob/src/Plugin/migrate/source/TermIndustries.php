@@ -22,8 +22,8 @@ class TermIndustries extends DrupalSqlBase {
 
   protected $termsToMigrate = [
     'Consumer Products',
-    'Education',
-    'Financial Services',
+    'Education Services',
+    'Finance',
     'Government Federal',
     'Government S/L',
     'Health Services',
@@ -31,15 +31,21 @@ class TermIndustries extends DrupalSqlBase {
     'Manufacturing',
     'Retail/Wholesale',
     'Technology',
-    'Transportation',
-    'Utilities'
-    ];
+    'Transport',
+    'Utilities',
+    'Credit Union',
+    'Payment Processing',
+    'Logistics',
+    'Travel / Hospitality',
+    'Non-Profit',
+    'Law Enforcement'
+  ];
   
   /**
    * {@inheritdoc}
    */
   public function query() {
-    if (empty($this->topicsVid)) {
+    if (empty($this->vocVid)) {
       $vid = $this->select('vocabulary', 'v')
         ->fields('v', ['vid'])
         ->condition('name', $this->vocabularyName)

@@ -29,7 +29,7 @@ class TermCsolutions extends DrupalSqlBase {
     'IBM System z',
     'Oracle',
     'Redhat',
-    'Salesforce',
+    'Salesforce Chatter Integration',
     'SAP',
     'Teradata'
     ];

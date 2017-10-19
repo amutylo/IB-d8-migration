@@ -18,23 +18,21 @@ process:
   status: status
   promote: promote
   sticky: sticky
-  'body/value': body
-  'body/format': full_html
+  'body': body
   field_resource_copy: body
-  field_date: field_article_datef
   'field_resource_file/target_id':
     plugin: migration
     migration: infob_file
     source: field_ebook_pdf
   field_salesforce_campaign_id: field_salesforce_campaign_id
-  field_nid: nid
-  field_metatags: meta_tags
   field_resource_type:
     plugin: default_value
     default_value: 11
-destination:
-  plugin: 'entity:node'
-migration_dependencies:
-  required:
-    - infob_file
-  optional: {}
+  field_nid: nid
+  field_metatags: meta_tags
+  destination:
+    plugin: 'entity:node'
+  migration_dependencies:
+    required:
+      - infob_file
+    optional: {}

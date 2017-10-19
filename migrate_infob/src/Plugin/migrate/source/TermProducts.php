@@ -21,6 +21,7 @@ class TermProducts extends DrupalSqlBase {
   protected $vocVid;
 
   protected $termsToMigrate = [
+    'Business User Edition',
     'DB2 Web Query',
     'FOCUS',
     'IBMi',
@@ -32,7 +33,21 @@ class TermProducts extends DrupalSqlBase {
     'Rstat',
     'WebFOCUS',
     'WebFOCUS Hyperstage',
-    'WebFOCUS Mobile'
+    'WebFOCUS Mobile',
+    'Omni-Gen MDM',
+    'Omni-Gen Data Quality',
+    'Omni-Gen Integration',
+    'Big Data Integrator',
+    'Enterprise Usage Monitor',
+    'App Studio',
+    'Narrative Charts',
+    'Total Access Bundle for Cloud',
+    'Location Analytics',
+    'In-Document Analytics',
+    'OmniHealth Data Insights',
+    'Omni Governance Console',
+    'OmniHealth Data Payer Edition',
+    'OmniHealth Data Provider Edition'
     ];
   
   /**

@@ -21,6 +21,11 @@ process:
   'body/value': body
   'body/format': full_html
   'field_publication_logo/target_id':
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_publication_logo/target_id
+    -
       plugin: migration
       migration: infob_file
       source: field_pb_thumbnail

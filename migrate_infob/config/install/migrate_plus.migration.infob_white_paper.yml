@@ -18,13 +18,17 @@ process:
   status: status
   promote: promote
   sticky: sticky
-  'body/value': body
-  'body/format': full_html
-  field_date: field_article_datef
+  'body': body
+  field_date_only: field_article_datef
   'field_image/target_id':
-    plugin: migration
-    migration: infob_resource_file
-    source: field_wp_thumbnail
+    -
+      plugin: skip_on_empty
+      method: process
+      source: field_image/target_id
+    -
+      plugin: migration
+      migration: infob_resource_file
+      source: field_wp_thumbnail
   'field_resource_file/target_id':
     plugin: migration
     migration: infob_file
@@ -34,7 +38,16 @@ process:
   field_nid: nid
   field_metatags: meta_tags
   field_resource_type:
-      plugin: default_value
-      default_value: 31
+    plugin: default_value
+    default_value: 31
+  field_customer: field_customer_node
+  field_industry: field_industry
+  field_tax_product: field_tax_product
+  field_topic: field_topic
+  field_tax_function: field_tax_function
 destination:
   plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - infob_file
+  optional: {}

@@ -18,9 +18,9 @@ process:
   status: status
   promote: promote
   sticky: sticky
-  'body/value': body
-  'body/format': full_html
-  field_date: field_article_datef
+  'body': body
+  field_resource_copy: body
+  field_date_only: field_article_datef
   'field_resource_file/target_id':
     plugin: migration
     migration: infob_file
@@ -30,6 +30,10 @@ process:
   field_resource_type:
       plugin: default_value
       default_value: 21
+  field_industry: field_industry
+  field_tax_product: field_tax_product
+  field_topic: field_topic
+  field_tax_function: field_tax_function
 destination:
   plugin: 'entity:node'
 migration_dependencies:

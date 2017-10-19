@@ -49,19 +49,19 @@ class CustomerNode extends Node {
     }
 
     $metatags = [
-      'title' => $row->getSourceProperty('HEAD_TITLE') . ' | [site:name]',
+      'title' => '[node:title] | [site:name]',
       'description' => $row->getSourceProperty('DESCRIPTION'),
       'keywords' => $row->getSourceProperty('KEYWORDS'),
     ];
     $row->setSourceProperty('meta_tags', serialize($metatags));
 
     $clogo = $row->getSourceProperty('field_customer_logo');
-    if (isset($clogo[0]['fid'])) {
+    if (!empty($clogo) && isset($clogo[0]['fid'])) {
       $row->setSourceProperty('field_customer_logo', $clogo[0]['fid']);
     }
 
     $img = $row->getSourceProperty('field_masthead_image');
-    if (isset($img[0]['fid'])) {
+    if (!empty($img) && isset($img[0]['fid'])) {
       $row->setSourceProperty('field_masthead_image', $img[0]['fid']);
     }
 
@@ -75,6 +75,7 @@ class CustomerNode extends Node {
       foreach($customer_blurb as $item) {
         if (!empty($item['value'])) {
           $value = explode("\r\n", $item['value']);
+          $value[0] = iconv('UTF-8', 'ASCII//TRANSLIT', $value[0]);
           $value[0] = str_replace('"', '', $value[0]);
           $row->setSourceProperty('field_quote', array('value' => trim(strip_tags($value[0])), 'format' => 'full_html'));
           $row->setSourceProperty('field_quote_source', trim(strip_tags($value[1])));
@@ -133,10 +134,62 @@ class CustomerNode extends Node {
         $row->setSourceProperty('address', $address);
       }
     }
+
+    $termIds = $this->select('term_node', 'n')
+                    ->fields('n', array('tid'))
+                    ->condition('n.nid', $row->getSourceProperty('nid'))
+                    ->distinct()
+                    ->execute()
+                    ->fetchCol();
+
+    if (!empty($termIds)) {
+      $termData = $this->select('term_data', 't')
+                       ->fields('t', array('vid', 'tid', 'name'))
+                       ->condition('t.tid', $termIds, 'IN')
+                       ->distinct()
+                       ->execute()
+                       ->fetchAll();
+
+      //- Map industry taxonomy
+      $industryTerms = $this->getTerms('industries', $termData);
+      if (!empty($industryTerms)) {
+        $row->setSourceProperty('field_industry', $industryTerms);
+      }
+    }
+
+    //- Map customer taxonomy
+    $customerTerms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree('customers', $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+
+    $termMatch = null;
+    foreach ($customerTerms as $term) {
+      similar_text($row->getSourceProperty('title') , $term->name, $percent);
+      if ($percent > $termMatch) {
+        $termMatch = $percent;
+        $customerTermId = $term->tid;
+      }
+    }
+
+    if (isset($customerTermId)) {
+      $row->setSourceProperty('field_customer', $customerTermId);
+    }
+
     return TRUE;
   }
 
   public function object2array($object) {
     return @json_decode(@json_encode($object),1);
+  }
+
+  public function getTerms($vocabulary, $termData) {
+    $terms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree($vocabulary, $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+    $termIds = array();
+    foreach ($terms as $k => $term) {
+      foreach($termData as $availableTerm) {
+        if ($term->name == $availableTerm['name']) {
+          $termIds[] = $term->tid;
+        }
+      }
+    }
+    return $termIds;
   }
 }

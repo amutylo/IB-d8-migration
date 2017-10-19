@@ -24,7 +24,7 @@ class TermTopics extends DrupalSqlBase {
   protected $termsToMigrate = [
     'Active Technologies',
     'Ad Hoc Reports',
-    'Adapter',
+    'Adapter ',
     'BI App Development',
     'Big Data',
     'Business Analytics',
@@ -32,6 +32,7 @@ class TermTopics extends DrupalSqlBase {
     'Channels Solutions',
     'Cloud Computing',
     'Consulting',
+    'Customer Application',
     'Customer-facing',
     'Dashboards',
     'Data Cleansing',
@@ -47,18 +48,23 @@ class TermTopics extends DrupalSqlBase {
     'Financial Reporting',
     'InfoApps',
     'Information Delivery',
-    'Intelligent Search',
+    'Intelligent Search ',
     'Internet of Things (IoT)',
     'Master Data Management',
     'Mobile',
     'Operational Business Intelligence',
     'Performance Management',
+    'Performance Management Framework Vertical Solutions',
     'Portal',
     'Predictive Analytics',
     'Report Consolidation',
     'Security',
     'Self Service',
     'Summit',
+    'Accelerators',
+    'AI',
+    'Blockchain',
+    'Open Source'
     ];
   
   /**
