@@ -38,7 +38,7 @@ class PublicationNode extends Node {
       'keywords' => $row->getSourceProperty('KEYWORDS'),
     ];
     $row->setSourceProperty('meta_tags', serialize($metatags));
-    
+
     $pb_fid = $row->getSourceProperty('field_pb_thumbnail');
     if (isset($pb_fid[0]['fid'])) {
       $row->setSourceProperty('field_pb_thumbnail', $pb_fid[0]['fid']);
@@ -53,7 +53,7 @@ class PublicationNode extends Node {
   public function fields() {
     $fields = parent::fields();
     //add custom fields
-    $fields['field_pb_thumbnail_fid'] = $this->t('thumbnail pic');
+    $fields['field_pb_thumbnail'] = $this->t('thumbnail pic');
     return $fields;
   }
 }

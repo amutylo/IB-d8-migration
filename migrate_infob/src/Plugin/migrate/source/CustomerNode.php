@@ -58,11 +58,15 @@ class CustomerNode extends Node {
     $clogo = $row->getSourceProperty('field_customer_logo');
     if (!empty($clogo) && isset($clogo[0]['fid'])) {
       $row->setSourceProperty('field_customer_logo', $clogo[0]['fid']);
+    } else {
+      $row->setSourceProperty('field_customer_logo', null);
     }
 
     $img = $row->getSourceProperty('field_masthead_image');
     if (!empty($img) && isset($img[0]['fid'])) {
       $row->setSourceProperty('field_masthead_image', $img[0]['fid']);
+    } else {
+      $row->setSourceProperty('field_customer_logo', null);
     }
 
     $description = $row->getSourceProperty('field_customer_descriptor');
