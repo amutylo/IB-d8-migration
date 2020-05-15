@@ -1,4 +1,4 @@
-Migration of Drupal 6 content from www.informationbuilders.com to a new Drupal 8 instance.
+Migration of Drupal 6 content from www.infoXXXX.com to a new Drupal 8 instance.
 add to settings.php
 
 $databases['infob']['default'] = array (
